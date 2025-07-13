@@ -9,7 +9,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-white to-[#AEC8A4]">
+        <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-white to-[#AEC8A4] select-none">
             {/* Left side - Login Form */}
             <div className="w-full lg:w-2/5 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
                 <div className="w-full max-w-sm">
