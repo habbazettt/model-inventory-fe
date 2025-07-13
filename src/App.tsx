@@ -1,9 +1,7 @@
+import { Navigate } from 'react-router-dom'
+
 const App = () => {
-  return (
-    <>
-      <h1>Welcome</h1>
-    </>
-  )
+	return <Navigate to="/auth/login" replace />
 }
 
 export default App
