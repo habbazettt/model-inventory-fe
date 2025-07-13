@@ -1,16 +1,28 @@
 import { useState } from 'react';
 
 const LoginPage = () => {
+    /* START Variables */
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [showForgotPassword, setShowForgotPassword] = useState(false);
+    /* END Variables */
 
+
+    /* START Handler */
     const handleLogin = () => {
         console.log('Login attempt:', { username, password });
     };
 
+    const handleForgotPassword = () => {
+        console.log('Change login form into forgot password form (input email, if username & email founded, send an email with link to redirect the to reset password form)', { email });
+    };
+    /* END Handler */
+
+    /* View */
     return (
         <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-white to-[#AEC8A4] select-none">
-            {/* Left side - Login Form */}
+            {/* Left side - Login Form / Forgot Password Form */}
             <div className="w-full lg:w-2/5 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
                 <div className="w-full max-w-sm">
                     {/* Logo */}
@@ -18,52 +30,98 @@ const LoginPage = () => {
                         <img src="/baac-logo.png" alt="BAAC Logo" className="h-10 sm:h-12" />
                     </div>
 
-                    {/* Login Form */}
-                    <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8">
-                        <div className="text-center mb-6 lg:mb-8">
-                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 lg:mb-3">Model Inventory</h1>
-                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Tool</h1>
-                            <p className="text-gray-500 text-sm">Please enter your username and password</p>
-                        </div>
-
-                        <div className="space-y-4 lg:space-y-5">
-                            <div>
-                                <input
-                                    type="text"
-                                    placeholder="Username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                    className="w-full px-4 lg:px-5 py-3 lg:py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent text-gray-900 placeholder-gray-400 bg-gray-50"
-                                />
+                    {!showForgotPassword ? (
+                        <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8">
+                        {/*START Login Form*/}
+                            <div className="text-center mb-6 lg:mb-8">
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 lg:mb-3">Model Inventory</h1>
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Tool</h1>
+                                <p className="text-gray-500 text-sm">Please enter your username and password</p>
                             </div>
 
-                            <div>
-                                <input
-                                    type="password"
-                                    placeholder="Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-4 lg:px-5 py-3 lg:py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent text-gray-900 placeholder-gray-400 bg-gray-50"
-                                />
+                            <div className="space-y-4 lg:space-y-5">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        className="w-full px-4 lg:px-5 py-3 lg:py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent text-gray-900 placeholder-gray-400 bg-gray-50"
+                                    />
+                                </div>
+
+                                <div>
+                                    <input
+                                        type="password"
+                                        placeholder="Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="w-full px-4 lg:px-5 py-3 lg:py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent text-gray-900 placeholder-gray-400 bg-gray-50"
+                                    />
+                                </div>
+
+                                <div className="text-right py-1">
+                                    <span 
+                                        className="text-gray-400 hover:text-gray-600 text-sm cursor-pointer"
+                                        onClick={() => setShowForgotPassword(true)}
+                                    >
+                                        Forget Password
+                                    </span>
+                                </div>
+
+                                <button
+                                    onClick={handleLogin}
+                                    className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                                >
+                                    Login
+                                </button>
+                            </div>
+                            <div className="flex justify-end mt-6 lg:mt-8">
+                                <img src="/by-rsm-logo.svg" alt="by RSM" className="h-3 sm:h-4" />
+                            </div>
+                        {/* END Login Form */}
+                        </div>
+                    ) : (
+                        <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8">
+                        {/* START Forgot Password Form */}
+                            <div className="text-center mb-6 lg:mb-8">
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 lg:mb-3">Model Inventory</h1>
+                                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Tool</h1>
+                                <p className="text-gray-500 text-sm">Please enter your email for reset the password</p>
                             </div>
 
-                            <div className="text-right py-1">
-                                <span className="text-gray-400 hover:text-gray-600 text-sm cursor-pointer">
-                                    Forget Password
-                                </span>
-                            </div>
+                            <div className="space-y-4 lg:space-y-5">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        className="w-full px-4 lg:px-5 py-3 lg:py-4 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-1 focus:border-transparent text-gray-900 placeholder-gray-400 bg-gray-50"
+                                    />
+                                </div>
 
-                            <button
-                                onClick={handleLogin}
-                                className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
-                            >
-                                Login
-                            </button>
+                                <button
+                                    onClick={handleForgotPassword}
+                                    className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                                >
+                                    Reset Password
+                                </button>
+
+                                <button
+                                    onClick={() => setShowForgotPassword(false)}
+                                    className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                                >
+                                    Back to Login
+                                </button>
+
+                            </div>
+                            <div className="flex justify-end mt-6 lg:mt-8">
+                                <img src="/by-rsm-logo.svg" alt="by RSM" className="h-3 sm:h-4" />
+                            </div>
+                        {/* END Forgot Password Form */}
                         </div>
-                        <div className="flex justify-end mt-6 lg:mt-8">
-                            <img src="/by-rsm-logo.svg" alt="by RSM" className="h-3 sm:h-4" />
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
 
