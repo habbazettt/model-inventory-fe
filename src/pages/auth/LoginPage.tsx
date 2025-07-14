@@ -1,15 +1,12 @@
 import { useState } from 'react';
 
 const LoginPage = () => {
-    /* START Variables */
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [showForgotPassword, setShowForgotPassword] = useState(false);
-    /* END Variables */
 
 
-    /* START Handler */
     const handleLogin = () => {
         console.log('Login attempt:', { username, password });
     };
@@ -17,9 +14,7 @@ const LoginPage = () => {
     const handleForgotPassword = () => {
         console.log('Change login form into forgot password form (input email, if username & email founded, send an email with link to redirect the to reset password form)', { email });
     };
-    /* END Handler */
 
-    /* View */
     return (
         <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-white to-[#AEC8A4] select-none">
             {/* Left side - Login Form / Forgot Password Form */}
@@ -32,7 +27,7 @@ const LoginPage = () => {
 
                     {!showForgotPassword ? (
                         <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8">
-                        {/*START Login Form*/}
+                            {/* Login Form*/}
                             <div className="text-center mb-6 lg:mb-8">
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 lg:mb-3">Model Inventory</h1>
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Tool</h1>
@@ -61,7 +56,7 @@ const LoginPage = () => {
                                 </div>
 
                                 <div className="text-right py-1">
-                                    <span 
+                                    <span
                                         className="text-gray-400 hover:text-gray-600 text-sm cursor-pointer"
                                         onClick={() => setShowForgotPassword(true)}
                                     >
@@ -79,21 +74,20 @@ const LoginPage = () => {
                             <div className="flex justify-end mt-6 lg:mt-8">
                                 <img src="/by-rsm-logo.svg" alt="by RSM" className="h-3 sm:h-4" />
                             </div>
-                        {/* END Login Form */}
                         </div>
                     ) : (
                         <div className="bg-white rounded-2xl lg:rounded-3xl shadow-xl p-6 sm:p-8">
-                        {/* START Forgot Password Form */}
                             <div className="text-center mb-6 lg:mb-8">
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 lg:mb-3">Model Inventory</h1>
                                 <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">Tool</h1>
-                                <p className="text-gray-500 text-sm">Please enter your email for reset the password</p>
+                                <p className="text-gray-500 text-sm">Please enter your email to reset your password</p>
                             </div>
 
+                            {/* Form Fields and Primary Button */}
                             <div className="space-y-4 lg:space-y-5">
                                 <div>
                                     <input
-                                        type="text"
+                                        type="email"
                                         placeholder="Email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
@@ -107,19 +101,21 @@ const LoginPage = () => {
                                 >
                                     Reset Password
                                 </button>
+                            </div>
 
+                            {/* Secondary "Back" Action */}
+                            <div className="text-center mt-6">
                                 <button
                                     onClick={() => setShowForgotPassword(false)}
-                                    className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                                    className="text-sm font-medium text-gray-600 hover:text-primary-1 focus:outline-none transition-colors duration-300"
                                 >
                                     Back to Login
                                 </button>
-
                             </div>
-                            <div className="flex justify-end mt-6 lg:mt-8">
+
+                            <div className="flex justify-end mt-8 lg:mt-10">
                                 <img src="/by-rsm-logo.svg" alt="by RSM" className="h-3 sm:h-4" />
                             </div>
-                        {/* END Forgot Password Form */}
                         </div>
                     )}
                 </div>
