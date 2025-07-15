@@ -39,7 +39,7 @@ export default function DonutChart({ data }: DonutChartProps) {
                     cx="50%"
                     cy="50%"
                     innerRadius={35}
-                    outerRadius={50}
+                    outerRadius={55}
                     fill="#8884d8"
                     paddingAngle={5}
                     dataKey="value"

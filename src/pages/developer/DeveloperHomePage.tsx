@@ -1,20 +1,35 @@
 import { Bell, FileBox, HelpCircle, Home, Settings, Plus } from "lucide-react";
 import Sidebar, { SidebarItem } from "../../components/Sidebar";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import DonutChart from "../../components/DonutChart";
 import { useNavigate } from "react-router-dom";
-import type { Model, ModelStatus } from "../../types";
+import type { AddModel, Model, ModelStatus } from "../../types";
+import AddNewModelModal from "../../components/modal/AddNewModel";
 
 export default function DeveloperHomePage() {
   const navigate = useNavigate();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const modelData: Model[] = [
+  const [isAddModelModalOpen, setIsAddModelModalOpen] = useState(false);
+
+  const [modelData, setModelData] = useState<Model[]>([
     { id: "MOD-01", name: "Early Redemption Risk", description: "Model for predicting early redemption of term deposit products", owner: "Chris02", status: "Approved" },
     { id: "MOD-02", name: "Prepayment Rate for Loan Products", description: "Model for predicting prepayment rate of fixed term loan products", owner: "Marco12", status: "Requires Validation" },
     { id: "MOD-03", name: "Delay Payment Rate for Loan Products", description: "Model for predicting delay payment of loan products with linear regression", owner: "Jordan22", status: "Retired" },
     { id: "MOD-04", name: "Core Non-Maturity Deposit Modelling", description: "Model for predicting core stable portion of non-maturity deposits.", owner: "Jordan22", status: "Requires Approval" },
     { id: "MOD-05", name: "Rollover of Term Deposits", description: "Model for predecting rollover rate of term deposit products", owner: "Jordan22", status: "Requires Validation" }
-  ];
+  ])
+
+  const handleAddModel = (newModelData: AddModel) => {
+    const newModel: Model = {
+      id: `MOD-${String(modelData.length + 1).padStart(2, '0')}`,
+      ...newModelData,
+      description: newModelData.model_objective,
+      owner: "Developer",
+      status: "Requires Validation"
+    };
+
+    setModelData(prevData => [...prevData, newModel]);
+    setIsAddModelModalOpen(false);
+  };
 
   const chartData = useMemo(() => {
     const statusCounts = modelData.reduce((acc: { [key in ModelStatus]?: number }, model) => {
@@ -171,7 +186,10 @@ export default function DeveloperHomePage() {
             <div className="p-4 border-b border-gray-200 flex-shrink-0">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <h3 className="text-base md:text-lg font-semibold text-gray-900">Models</h3>
-                <button className="bg-primary-2/80 hover:cursor-pointer hover:bg-primary-2 transition-all text-white px-3 md:px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm">
+                <button
+                  onClick={() => setIsAddModelModalOpen(true)}
+                  className="bg-primary-2/80 hover:cursor-pointer hover:bg-primary-2 transition-all text-white px-3 md:px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm"
+                >
                   <Plus size={16} />
                   <span>Add New Model</span>
                 </button>
@@ -233,6 +251,12 @@ export default function DeveloperHomePage() {
           </div>
         </div>
       </div>
+
+      <AddNewModelModal
+        isOpen={isAddModelModalOpen}
+        onClose={() => setIsAddModelModalOpen(false)}
+        onAddModel={handleAddModel}
+      />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import { ChevronFirst, ChevronLast, MoreVertical } from "lucide-react"
+import { ChevronFirst, ChevronLast, ChevronsUpDown } from "lucide-react"
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -49,7 +49,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                                 <h4 className="font-semibold">Developer</h4>
                                 <span className="text-xs text-gray-400">developer@baac.com</span>
                             </div>
-                            <MoreVertical size={20} />
+                            <ChevronsUpDown size={20} />
                         </div>
                     </div>
                 </nav>
