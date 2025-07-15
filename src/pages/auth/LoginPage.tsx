@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -8,6 +10,7 @@ const LoginPage = () => {
 
     const handleLogin = () => {
         console.log('Login attempt:', { username, password });
+        navigate('/developer/home');
     };
 
     const handleForgotPassword = () => {
@@ -15,7 +18,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-white to-[#AEC8A4] select-none">
+        <div className="min-h-screen flex flex-col justify-center lg:flex-row bg-gradient-to-br from-[#F0F0F0] to-[#AEC8A4] select-none">
             {/* Left side - Login Form / Forgot Password Form */}
             <div className="w-full lg:w-2/5 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 lg:py-0">
                 <div className="w-full max-w-sm">

@@ -3,6 +3,8 @@ export interface Model {
     name: string;
     description: string;
     owner: string;
+    validator?: string
+    date_approved?: string;
     status: ModelStatus;
 }
 

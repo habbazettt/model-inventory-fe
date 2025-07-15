@@ -158,7 +158,7 @@ export default function AddNewModelModal({ isOpen, onClose, onAddModel }: AddNew
                         </div>
                     </div>
 
-                    {/* Tombol Aksi */}
+                    {/* Action Button */}
                     <div className="mt-6 flex justify-end space-x-3 border-t pt-4">
                         <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors">Cancel</button>
                         <button type="submit" className="px-4 py-2 bg-primary-2 text-white rounded-lg hover:bg-primary-2/90 transition-colors">Add Model</button>

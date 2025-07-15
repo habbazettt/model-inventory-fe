@@ -5,6 +5,8 @@ import DonutChart from "../../components/DonutChart";
 import { useNavigate } from "react-router-dom";
 import type { AddModel, Model, ModelStatus } from "../../types";
 import AddNewModelModal from "../../components/modal/AddNewModel";
+import ModelDetailModal from "../../components/modal/ModelDetailModal";
+import { getStatusColor } from "../../utils/statusUtils";
 
 export default function DeveloperHomePage() {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ export default function DeveloperHomePage() {
     { id: "MOD-04", name: "Core Non-Maturity Deposit Modelling", description: "Model for predicting core stable portion of non-maturity deposits.", owner: "Jordan22", status: "Requires Approval" },
     { id: "MOD-05", name: "Rollover of Term Deposits", description: "Model for predecting rollover rate of term deposit products", owner: "Jordan22", status: "Requires Validation" }
   ])
+
+  const [selectedModel, setSelectedModel] = useState<Model | null>(null);
 
   const handleAddModel = (newModelData: AddModel) => {
     const newModel: Model = {
@@ -55,16 +59,6 @@ export default function DeveloperHomePage() {
     "Retired": "bg-gray-500"
   };
 
-  const getStatusColor = (status: ModelStatus): string => {
-    switch (status) {
-      case "Approved": return "bg-green-100 text-green-800";
-      case "Requires Validation": return "bg-yellow-100 text-yellow-800";
-      case "Requires Approval": return "bg-red-100 text-red-800";
-      case "Retired": return "bg-gray-100 text-gray-800";
-      default: return "bg-gray-100 text-gray-800";
-    }
-  };
-
   return (
     <main className="flex h-screen overflow-hidden">
       <Sidebar>
@@ -81,7 +75,7 @@ export default function DeveloperHomePage() {
         <SidebarItem icon={<HelpCircle size={20} />} text={"Help"} urlNavigate="/developer/help" />
       </Sidebar>
 
-      <div className="flex-1 bg-gradient-to-br from-white to-primary-3 overflow-auto min-w-0">
+      <div className="flex-1 bg-gradient-to-br from-[#F0F0F0] to-primary-3 overflow-auto min-w-0">
         <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
           {/* Header */}
           <div className="mb-4">
@@ -219,7 +213,11 @@ export default function DeveloperHomePage() {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {modelData.map((model) => (
-                    <tr key={model.id} className="hover:bg-gray-50">
+                    <tr
+                      key={model.id}
+                      className="hover:bg-gray-100 hover:cursor-pointer"
+                      onClick={() => setSelectedModel(model)}
+                    >
                       <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                         {model.id}
                       </td>
@@ -256,6 +254,11 @@ export default function DeveloperHomePage() {
         isOpen={isAddModelModalOpen}
         onClose={() => setIsAddModelModalOpen(false)}
         onAddModel={handleAddModel}
+      />
+
+      <ModelDetailModal
+        model={selectedModel}
+        onClose={() => setSelectedModel(null)}
       />
     </main>
   );

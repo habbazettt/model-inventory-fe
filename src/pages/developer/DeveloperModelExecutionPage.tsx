@@ -1,16 +1,9 @@
 import { Bell, FileBox, HelpCircle, Home, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "../../components/Sidebar";
-import type { Model, ModelStatus } from "../../types";
+import type { ModelStatus } from "../../types";
+import { modelData } from "../../data/modelData";
 
 export default function DeveloperModelExecutionPage() {
-    const modelData: Model[] = [
-        { id: "MOD-01", name: "Early Redemption Risk", description: "Model for predicting early redemption of term deposit products", owner: "Chris02", status: "Approved" },
-        { id: "MOD-02", name: "Prepayment Rate for Loan Products", description: "Model for predicting prepayment rate of fixed term loan products", owner: "Marco12", status: "Requires Validation" },
-        { id: "MOD-03", name: "Delay Payment Rate for Loan Products", description: "Model for predicting delay payment of loan products with linear regression", owner: "Jordan22", status: "Retired" },
-        { id: "MOD-04", name: "Core Non-Maturity Deposit Modelling", description: "Model for predicting core stable portion of non-maturity deposits.", owner: "Jordan22", status: "Requires Approval" },
-        { id: "MOD-05", name: "Rollover of Term Deposits", description: "Model for predecting rollover rate of term deposit products", owner: "Jordan22", status: "Requires Validation" }
-    ];
-
     const getStatusColor = (status: ModelStatus): string => {
         switch (status) {
             case "Approved": return "bg-green-100 text-green-800";
@@ -54,7 +47,7 @@ export default function DeveloperModelExecutionPage() {
                 />
             </Sidebar>
 
-            <div className="flex-1 bg-gradient-to-br from-white to-primary-3 overflow-auto min-w-0">
+            <div className="flex-1 bg-gradient-to-br from-[#F0F0F0] to-primary-3 overflow-auto min-w-0">
                 <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
                     {/* Header */}
                     <div className="mb-4">
@@ -105,6 +98,12 @@ export default function DeveloperModelExecutionPage() {
                                             </td>
                                             <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">
                                                 {model.owner}
+                                            </td>
+                                            <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">
+                                                {model.validator}
+                                            </td>
+                                            <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">
+                                                {model.date_approved}
                                             </td>
                                             <td className="px-3 md:px-6 py-3 whitespace-nowrap">
                                                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(model.status)}`}>

@@ -6,8 +6,13 @@ import LoginPage from './pages/auth/LoginPage.tsx'
 import DeveloperHomePage from './pages/developer/DeveloperHomePage.tsx'
 import DeveloperNotificationsPage from './pages/developer/DeveloperNotificationsPage.tsx'
 import DeveloperModelExecutionPage from './pages/developer/DeveloperModelExecutionPage.tsx'
+import App from './App.tsx'
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
   {
     path: "/developer/home",
     element: <DeveloperHomePage />,
