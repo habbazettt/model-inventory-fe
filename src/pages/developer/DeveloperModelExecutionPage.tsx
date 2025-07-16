@@ -1,9 +1,13 @@
 import { Bell, FileBox, HelpCircle, Home, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "../../components/Sidebar";
-import type { ModelStatus } from "../../types";
+import type { Model, ModelStatus } from "../../types";
 import { modelData } from "../../data/modelData";
+import { useState } from "react";
+import ModelDetailModal from "../../components/modal/ModelDetailModal";
 
 export default function DeveloperModelExecutionPage() {
+    const [selectedModel, setSelectedModel] = useState<Model | null>(null);
+
     const getStatusColor = (status: ModelStatus): string => {
         switch (status) {
             case "Approved": return "bg-green-100 text-green-800";
@@ -47,11 +51,11 @@ export default function DeveloperModelExecutionPage() {
                 />
             </Sidebar>
 
-            <div className="flex-1 bg-gradient-to-br from-[#F0F0F0] to-primary-3 overflow-auto min-w-0">
+            <div className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">
                 <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
                     {/* Header */}
                     <div className="mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Model Execution</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Model Execution</h1>
                     </div>
 
                     {/* Model Execution Table */}
@@ -85,7 +89,10 @@ export default function DeveloperModelExecutionPage() {
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {modelData.map((model) => (
-                                        <tr key={model.id} className="hover:bg-gray-50">
+                                        <tr
+                                            key={model.id} className="hover:bg-gray-50 hover:cursor-pointer"
+                                            onClick={() => setSelectedModel(model)}
+                                        >
                                             <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">
                                                 {model.id}
                                             </td>
@@ -123,6 +130,11 @@ export default function DeveloperModelExecutionPage() {
                     </div>
                 </div>
             </div>
+
+            <ModelDetailModal
+                model={selectedModel}
+                onClose={() => setSelectedModel(null)}
+            />
         </main>
     );
 }

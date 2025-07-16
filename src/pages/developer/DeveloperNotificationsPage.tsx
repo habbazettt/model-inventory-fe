@@ -55,11 +55,11 @@ export default function DeveloperNotificationsPage() {
                 <SidebarItem icon={<HelpCircle size={20} />} text={"Help"} urlNavigate="/developer/help" />
             </Sidebar>
 
-            <div className="flex-1 bg-gradient-to-br from-[#F0F0F0] to-primary-3 overflow-auto min-w-0">
+            <div className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">
                 <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
                     {/* Header */}
                     <div className="mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Notifications</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Notifications</h1>
                     </div>
 
                     <div className="bg-white rounded-lg shadow-sm border overflow-hidden">

@@ -49,7 +49,7 @@ export default function ModelDetailModal({ model, onClose }: ModelDetailModalPro
                 <div className="p-5">
                     <p className="text-sm text-gray-700 font-bold">Formula:</p>
                     <img
-                        src="/public/dummy-formula.svg"
+                        src="/dummy-formula.svg"
                         alt="model formula"
                         className="w-full h-auto px-5"
                     />
