@@ -1,7 +1,7 @@
-const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+import { Navigate } from "react-router-dom";
 
-export default App
+export default function App() {
+  return (
+    <Navigate to="/auth/login" />
+  );
+}
