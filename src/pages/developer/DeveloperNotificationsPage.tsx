@@ -1,6 +1,7 @@
 import { Bell, Check, FileBox, HelpCircle, Home, Reply, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "../../components/Sidebar";
 import { useState } from "react";
+import ReplyModal from "../../components/modal/ReplyModal";
 
 export default function DeveloperNotificationsPage() {
     const [notifications, setNotifications] = useState([
@@ -22,6 +23,8 @@ export default function DeveloperNotificationsPage() {
         }
     ]);
 
+    const [replyingToId, setReplyingToId] = useState<number | null>(null);
+
     const handleMarkAsResolved = (id: number) => {
         setNotifications(notifications.map(notification =>
             notification.id === id
@@ -31,8 +34,16 @@ export default function DeveloperNotificationsPage() {
     };
 
     const handleReply = (id: number) => {
-        console.log(`Reply to notification ${id}`);
+        setReplyingToId(id);
     };
+
+    const handleSendReply = (replyText: string) => {
+        console.log(`Reply for notification ID ${replyingToId}: "${replyText}"`);
+
+        setReplyingToId(null);
+    };
+
+    const notificationToReply = notifications.find(n => n.id === replyingToId);
 
     return (
         <main className="flex h-screen overflow-hidden">
@@ -141,6 +152,12 @@ export default function DeveloperNotificationsPage() {
                     </div>
                 </div>
             </div>
+
+            <ReplyModal
+                notification={notificationToReply || null}
+                onClose={() => setReplyingToId(null)}
+                onSubmit={handleSendReply}
+            />
         </main>
     );
 }

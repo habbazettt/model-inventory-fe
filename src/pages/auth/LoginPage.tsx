@@ -10,7 +10,16 @@ const LoginPage = () => {
 
     const handleLogin = () => {
         console.log('Login attempt:', { username, password });
-        navigate('/developer/home');
+        if (username.includes('developer') || password.includes('developer')) {
+            navigate('/developer/home');
+        } else if (username.includes('validator') || password.includes('validator')) {
+            navigate('/validator/home');
+        } else if (username.includes('approver') || password.includes('approver')) {
+            navigate('/approver/home');
+        } else {
+            console.error('Invalid credentials');
+            alert('Invalid username or password. Please try again.');
+        }
     };
 
     const handleForgotPassword = () => {
@@ -68,6 +77,11 @@ const LoginPage = () => {
 
                                 <button
                                     onClick={handleLogin}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            handleLogin();
+                                        }
+                                    }}
                                     className="w-full bg-primary-1 hover:bg-primary-2 text-white font-semibold py-3 lg:py-4 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
                                 >
                                     Login

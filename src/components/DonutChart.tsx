@@ -1,5 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, type TooltipProps } from 'recharts';
-import { type ValueType, type NameType } from 'recharts/types/component/DefaultTooltipContent';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 const COLORS: { [key: string]: string } = {
     "Approved": "#22C55E",
@@ -9,7 +8,10 @@ const COLORS: { [key: string]: string } = {
 };
 
 
-const CustomTooltip = ({ active, payload }: TooltipProps<ValueType, NameType>) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomTooltip = (props: any) => {
+    const { active, payload } = props;
+
     if (active && payload && payload.length) {
         return (
             <div className="p-2 bg-white border border-gray-200 rounded-md shadow-sm">
