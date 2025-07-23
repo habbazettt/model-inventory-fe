@@ -4,8 +4,8 @@ import { useState } from "react";
 import ReplyModal from "../../components/modal/ReplyModal";
 import { useCheckRole } from "../../utils/checkRole";
 
-export default function DeveloperNotificationsPage() {
-    useCheckRole("developer");
+export default function ValidatorNotificationsPage() {
+    useCheckRole("validator");
 
     const [notifications, setNotifications] = useState([
         {
@@ -54,19 +54,19 @@ export default function DeveloperNotificationsPage() {
                 <SidebarItem
                     icon={<Home size={20} />}
                     text="Home"
-                    urlNavigate="/developer/home"
+                    urlNavigate="/validator/home"
                 />
                 <SidebarItem
                     icon={<Bell size={20} />}
                     text={"Notifications"}
                     alert={true}
                     active
-                    urlNavigate="/developer/notifications"
+                    urlNavigate="/validator/notifications"
                 />
-                <SidebarItem icon={<FileBox size={20} />} text={"Model Execution"} urlNavigate="/developer/model-execution" />
+                <SidebarItem icon={<FileBox size={20} />} text={"Model Validation"} urlNavigate="/validator/model-validation" />
                 <hr className="my-3" />
-                <SidebarItem icon={<Settings size={20} />} text={"Settings"} urlNavigate="/developer/settings" />
-                <SidebarItem icon={<HelpCircle size={20} />} text={"Help"} urlNavigate="/developer/help" />
+                <SidebarItem icon={<Settings size={20} />} text={"Settings"} urlNavigate="/validator/settings" />
+                <SidebarItem icon={<HelpCircle size={20} />} text={"Help"} urlNavigate="/validator/help" />
             </Sidebar>
 
             <div className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">

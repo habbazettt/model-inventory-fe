@@ -7,17 +7,21 @@ import type { AddModel, Model, ModelStatus } from "../../types";
 import AddNewModelModal from "../../components/modal/AddNewModel";
 import ModelDetailModal from "../../components/modal/ModelDetailModal";
 import { getStatusColor } from "../../utils/statusUtils";
+import { useCheckRole } from "../../utils/checkRole";
+import Button from "../../components/Button";
 
-export default function DeveloperHomePage() {
+const DeveloperHomePage = () => {
+  useCheckRole("developer");
+
   const navigate = useNavigate();
   const [isAddModelModalOpen, setIsAddModelModalOpen] = useState(false);
 
   const [modelData, setModelData] = useState<Model[]>([
-    { id: "MOD-01", name: "Early Redemption Risk", description: "Model for predicting early redemption of term deposit products", owner: "Chris02", status: "Approved" },
-    { id: "MOD-02", name: "Prepayment Rate for Loan Products", description: "Model for predicting prepayment rate of fixed term loan products", owner: "Marco12", status: "Requires Validation" },
-    { id: "MOD-03", name: "Delay Payment Rate for Loan Products", description: "Model for predicting delay payment of loan products with linear regression", owner: "Jordan22", status: "Retired" },
-    { id: "MOD-04", name: "Core Non-Maturity Deposit Modelling", description: "Model for predicting core stable portion of non-maturity deposits.", owner: "Jordan22", status: "Requires Approval" },
-    { id: "MOD-05", name: "Rollover of Term Deposits", description: "Model for predecting rollover rate of term deposit products", owner: "Jordan22", status: "Requires Validation" }
+    { id: "MOD-01", name: "Early Redemption Risk", description: "Model for predicting early redemption of term deposit products", initiator: "Chris02", status: "Approved" },
+    { id: "MOD-02", name: "Prepayment Rate for Loan Products", description: "Model for predicting prepayment rate of fixed term loan products", initiator: "Marco12", status: "Requires Validation" },
+    { id: "MOD-03", name: "Delay Payment Rate for Loan Products", description: "Model for predicting delay payment of loan products with linear regression", initiator: "Jordan22", status: "Retired" },
+    { id: "MOD-04", name: "Core Non-Maturity Deposit Modelling", description: "Model for predicting core stable portion of non-maturity deposits.", initiator: "Jordan22", status: "Requires Approval" },
+    { id: "MOD-05", name: "Rollover of Term Deposits", description: "Model for predecting rollover rate of term deposit products", initiator: "Jordan22", status: "Requires Validation" }
   ])
 
   const [selectedModel, setSelectedModel] = useState<Model | null>(null);
@@ -26,8 +30,9 @@ export default function DeveloperHomePage() {
     const newModel: Model = {
       id: `MOD-${String(modelData.length + 1).padStart(2, '0')}`,
       ...newModelData,
+      data_source: newModelData.model_file as File,
       description: newModelData.model_objective,
-      owner: "Developer",
+      initiator: "Developer",
       status: "Requires Validation"
     };
 
@@ -60,7 +65,7 @@ export default function DeveloperHomePage() {
   };
 
   return (
-    <main className="flex h-screen overflow-hidden">
+    <div style={{ display: 'flex' }}>
       <Sidebar>
         <SidebarItem
           icon={<Home size={20} />}
@@ -75,7 +80,7 @@ export default function DeveloperHomePage() {
         <SidebarItem icon={<HelpCircle size={20} />} text={"Help"} urlNavigate="/developer/help" />
       </Sidebar>
 
-      <div className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">
+      <main className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">
         <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
           {/* Header */}
           <div className="mb-4">
@@ -180,13 +185,13 @@ export default function DeveloperHomePage() {
             <div className="p-4 border-b border-gray-200 flex-shrink-0">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <h3 className="text-base md:text-lg font-semibold text-gray-900">Models</h3>
-                <button
+                <Button
+                  type="button"
                   onClick={() => setIsAddModelModalOpen(true)}
-                  className="bg-primary-2/80 hover:cursor-pointer hover:bg-primary-2 transition-all text-white px-3 md:px-4 py-2 rounded-lg flex items-center justify-center space-x-2 text-sm"
                 >
                   <Plus size={16} />
                   <span>Add New Model</span>
-                </button>
+                </Button>
               </div>
             </div>
 
@@ -204,7 +209,7 @@ export default function DeveloperHomePage() {
                       Description
                     </th>
                     <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                      Owner
+                      Initiator
                     </th>
                     <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Status
@@ -223,13 +228,13 @@ export default function DeveloperHomePage() {
                       </td>
                       <td className="px-3 md:px-6 py-3 text-xs md:text-sm text-gray-900">
                         <div className="max-w-xs truncate">{model.name}</div>
-                        <div className="md:hidden text-xs text-gray-500 mt-1">{model.owner}</div>
+                        <div className="md:hidden text-xs text-gray-500 mt-1">{model.initiator}</div>
                       </td>
                       <td className="px-3 md:px-6 py-3 text-xs md:text-sm text-gray-600 max-w-md hidden lg:table-cell">
                         <div className="line-clamp-2">{model.description}</div>
                       </td>
                       <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">
-                        {model.owner}
+                        {model.initiator}
                       </td>
                       <td className="px-3 md:px-6 py-3 whitespace-nowrap">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(model.status)}`}>
@@ -248,7 +253,7 @@ export default function DeveloperHomePage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <AddNewModelModal
         isOpen={isAddModelModalOpen}
@@ -260,6 +265,8 @@ export default function DeveloperHomePage() {
         model={selectedModel}
         onClose={() => setSelectedModel(null)}
       />
-    </main>
+    </div>
   );
 }
+
+export default DeveloperHomePage;

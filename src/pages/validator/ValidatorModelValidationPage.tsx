@@ -6,8 +6,8 @@ import { useMemo, useState } from "react";
 import ModelDetailModal from "../../components/modal/ModelDetailModal";
 import { useCheckRole } from "../../utils/checkRole";
 
-export default function DeveloperModelExecutionPage() {
-    useCheckRole("developer");
+export default function ValidatorModelValidationPage() {
+    useCheckRole("validator");
 
     const [selectedModel, setSelectedModel] = useState<Model | null>(null);
     const [statusFilter, setStatusFilter] = useState<ModelStatus | 'All'>('All');
@@ -16,12 +16,10 @@ export default function DeveloperModelExecutionPage() {
     const filteredModels = useMemo(() => {
         let filtered = modelData;
 
-        // Filter by status
         if (statusFilter !== 'All') {
             filtered = filtered.filter(model => model.status === statusFilter);
         }
 
-        // Filter by search term
         if (searchTerm.trim()) {
             filtered = filtered.filter(model =>
                 model.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -57,30 +55,30 @@ export default function DeveloperModelExecutionPage() {
                 <SidebarItem
                     icon={<Home size={20} />}
                     text="Home"
-                    urlNavigate="/developer/home"
+                    urlNavigate="/validator/home"
                 />
                 <SidebarItem
                     icon={<Bell size={20} />}
                     text={"Notifications"}
                     alert={true}
-                    urlNavigate="/developer/notifications"
+                    urlNavigate="/validator/notifications"
                 />
                 <SidebarItem
                     icon={<FileBox size={20} />}
-                    text={"Model Execution"}
-                    urlNavigate="/developer/model-execution"
+                    text={"Model Validation"}
+                    urlNavigate="/validator/model-validation"
                     active
                 />
                 <hr className="my-3" />
                 <SidebarItem
                     icon={<Settings size={20} />}
                     text={"Settings"}
-                    urlNavigate="/developer/settings"
+                    urlNavigate="/validator/settings"
                 />
                 <SidebarItem
                     icon={<HelpCircle size={20} />}
                     text={"Help"}
-                    urlNavigate="/developer/help"
+                    urlNavigate="/validator/help"
                 />
             </Sidebar>
 
@@ -88,10 +86,10 @@ export default function DeveloperModelExecutionPage() {
                 <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
                     {/* Header */}
                     <div className="mb-4">
-                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Model Execution</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Model Validation</h1>
                     </div>
 
-                    {/* Model Execution Table */}
+                    {/* Model Validation Table */}
                     <div className="bg-white rounded-lg shadow-sm border overflow-hidden flex-1 flex flex-col">
                         {/* Search and Filter Section */}
                         <div className="p-4 border-b border-gray-200">

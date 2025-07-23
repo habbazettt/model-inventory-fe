@@ -25,5 +25,6 @@ This project follows a **multi-stage branching strategy** for smooth feature dev
 ## 🚀 Getting Started
 
 1. Clone the repository  
+
    ```bash
    git clone https://github.com/habbazettt/model-inventory-fe.git

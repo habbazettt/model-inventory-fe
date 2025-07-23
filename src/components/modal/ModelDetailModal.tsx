@@ -2,6 +2,7 @@ import { X } from "lucide-react";
 import type { Model } from "../../types";
 import { getStatusColor } from "../../utils/statusUtils";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 interface ModelDetailModalProps {
     model: Model | null;
@@ -9,13 +10,29 @@ interface ModelDetailModalProps {
 }
 
 export default function ModelDetailModal({ model, onClose }: ModelDetailModalProps) {
+    const role = localStorage.getItem("role");
     const navigate = useNavigate()
     if (!model) {
         return null;
     }
 
     const handleViewDetails = () => {
-        navigate(`/developer/model/${model.id}`);
+        switch (role) {
+            case "developer":
+                navigate(`/developer/model/${model.id}`);
+                break;
+            case "validator":
+                navigate(`/validator/model/${model.id}`);
+                break;
+            case "approver":
+                navigate(`/approver/model/${model.id}`);
+                break;
+            case "superuser":
+                navigate(`/superuser/model/${model.id}`);
+                break;
+            default:
+                navigate(`/user/model/${model.id}`);
+        }
     };
 
     return (
@@ -83,13 +100,14 @@ export default function ModelDetailModal({ model, onClose }: ModelDetailModalPro
 
                 {/* Tombol Aksi */}
                 <div className="mt-6 flex justify-between space-x-3 border-t p-5">
-                    <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors">Dismiss</button>
-                    <button
-                        className="px-4 py-2 bg-primary-2 text-white rounded-lg hover:bg-primary-2/90 transition-colors"
+                    <Button onClick={onClose} variant="secondary" type="button">Close</Button>
+                    <Button
+                        type="button"
                         onClick={handleViewDetails}
+                        variant="primary"
                     >
                         View Details
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

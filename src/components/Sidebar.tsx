@@ -1,7 +1,7 @@
-// 1. Impor hook yang diperlukan
 import { ChevronFirst, ChevronLast, ChevronsUpDown, LogOut, Settings, User } from "lucide-react"
 import { createContext, useContext, useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import type { UserRole } from "../types";
 
 interface SidebarContextType {
     expanded: boolean;
@@ -11,11 +11,46 @@ const SidebarContext = createContext<SidebarContextType>({
     expanded: true
 });
 
+const userInfo = {
+    developer: {
+        name: "Developer",
+        email: "developer@baac.com",
+        initials: "DV",
+        color: "8EC5FC"
+    },
+    validator: {
+        name: "Validator",
+        email: "validator@baac.com",
+        initials: "VD",
+        color: "F9D423"
+    },
+    approver: {
+        name: "Approver",
+        email: "approver@baac.com",
+        initials: "AP",
+        color: "F38181"
+    },
+    superuser: {
+        name: "Superuser",
+        email: "superuser@baac.com",
+        initials: "SU",
+        color: "A8E063"
+    },
+    User: {
+        name: "User",
+        email: "user@baac.com",
+        initials: "US",
+        color: "ECF2D3"
+    }
+}
+
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const navigate = useNavigate();
     const [expanded, setExpanded] = useState(true);
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const userMenuRef = useRef<HTMLDivElement>(null);
+
+    const role = (localStorage.getItem('role') as UserRole);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -30,6 +65,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     }, []);
 
     const handleLogout = () => {
+        localStorage.removeItem('role');
         navigate('/auth/login');
     }
 
@@ -55,14 +91,13 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                         <ul className="flex-1 px-3">{children}</ul>
                     </SidebarContext.Provider>
 
-                    {/* 5. Modifikasi Nav User */}
                     <div className="border-t relative" ref={userMenuRef}>
                         {/* Popup Menu */}
                         {isUserMenuOpen && (
                             <div className="absolute left-full bottom-10 w-56 ml-2 bg-white border rounded-lg shadow-lg py-1">
                                 <div className="px-3 py-2">
-                                    <p className="font-semibold text-sm">Developer</p>
-                                    <p className="text-xs text-gray-500">developer@baac.com</p>
+                                    <p className="font-semibold text-sm">{userInfo[role].name}</p>
+                                    <p className="text-xs text-gray-500">{userInfo[role].email}</p>
                                 </div>
                                 <hr className="my-1" />
                                 <button className="w-full flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50">
@@ -87,7 +122,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             onClick={() => setIsUserMenuOpen(prev => !prev)}
                         >
                             <img
-                                src="https://ui-avatars.com/api/?background=ECF2D3&color=626F47&bold=true"
+                                src={`https://ui-avatars.com/api/?name=${userInfo[role]?.initials || "US"}&background=${userInfo[role]?.color || "ECF2D3"}&color=626F47&bold=true`}
                                 alt=""
                                 className="w-10 h-10 rounded-md"
                             />
@@ -96,10 +131,10 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                                 overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}
                             `}>
                                 <div className="flex flex-col">
-                                    <h4 className="font-semibold">Developer</h4>
-                                    <span className="text-xs text-gray-400">developer@baac.com</span>
+                                    <h4 className="font-semibold">{userInfo[role].name}</h4>
+                                    <span className="text-xs text-gray-400">{userInfo[role].email}</span>
                                 </div>
-                                <ChevronsUpDown size={20} />
+                                <ChevronsUpDown size={20} className="text-black/40 hover:text-black transition-all" />
                             </div>
                         </div>
                     </div>
@@ -109,7 +144,6 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     )
 }
 
-// Komponen SidebarItem tidak perlu diubah
 export function SidebarItem({ icon, text, active, alert, urlNavigate }: { icon: React.ReactNode, text: string, active?: boolean, alert?: boolean, urlNavigate?: string }) {
     const { expanded } = useContext(SidebarContext);
     const navigate = useNavigate();

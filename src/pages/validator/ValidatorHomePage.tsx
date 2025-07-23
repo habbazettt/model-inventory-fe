@@ -7,8 +7,11 @@ import { getStatusColor } from "../../utils/statusUtils";
 import ModelDetailModal from "../../components/modal/ModelDetailModal";
 import DonutChart from "../../components/DonutChart";
 import { useNavigate } from "react-router-dom";
+import { useCheckRole } from "../../utils/checkRole";
 
 export default function ValidatorHomePage() {
+    useCheckRole("validator");
+
     const navigate = useNavigate();
     const [selectedModel, setSelectedModel] = useState<Model | null>(null);
 
@@ -50,7 +53,7 @@ export default function ValidatorHomePage() {
             <div className="flex-1 bg-gradient-to-br from-secondary-3 to-primary-3 overflow-auto min-w-0">
                 <div className="h-full flex flex-col p-4 md:p-6 min-h-screen">
                     <div className="mb-4">
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Dashboard</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Dashboard</h1>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-4 flex-shrink-0">
@@ -138,7 +141,7 @@ export default function ValidatorHomePage() {
                                         <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Model ID</th>
                                         <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Model Name</th>
                                         <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden lg:table-cell">Description</th>
-                                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Owner</th>
+                                        <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">Initiator</th>
                                         <th className="px-3 md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                     </tr>
                                 </thead>
@@ -152,12 +155,12 @@ export default function ValidatorHomePage() {
                                             <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm font-medium text-gray-900">{model.id}</td>
                                             <td className="px-3 md:px-6 py-3 text-xs md:text-sm text-gray-900">
                                                 <div className="max-w-xs truncate">{model.name}</div>
-                                                <div className="md:hidden text-xs text-gray-500 mt-1">{model.owner}</div>
+                                                <div className="md:hidden text-xs text-gray-500 mt-1">{model.initiator}</div>
                                             </td>
                                             <td className="px-3 md:px-6 py-3 text-xs md:text-sm text-gray-600 max-w-md hidden lg:table-cell">
                                                 <div className="line-clamp-2">{model.description}</div>
                                             </td>
-                                            <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">{model.owner}</td>
+                                            <td className="px-3 md:px-6 py-3 whitespace-nowrap text-xs md:text-sm text-gray-900 hidden md:table-cell">{model.initiator}</td>
                                             <td className="px-3 md:px-6 py-3 whitespace-nowrap">
                                                 <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(model.status)}`}>
                                                     <span className="hidden sm:inline">{model.status}</span>

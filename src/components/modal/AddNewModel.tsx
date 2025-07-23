@@ -1,24 +1,25 @@
 import { X, UploadCloud } from "lucide-react";
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import type { AddModel } from "../../types";
+import Button from "../Button";
 
 interface AddNewModelModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onAddModel: (newModel: AddModel) => void;
+    isOpen: boolean
+    onClose: () => void
+    onAddModel: (newModel: AddModel) => void
 }
 
 export default function AddNewModelModal({ isOpen, onClose, onAddModel }: AddNewModelModalProps) {
-    const [name, setName] = useState("");
-    const [initiator, setInitiator] = useState("");
-    const [modelObjective, setModelObjective] = useState("");
-    const [modelType, setModelType] = useState("");
-    const [dataSource, setDataSource] = useState("");
-    const [modelRemarks, setModelRemarks] = useState("");
-    const [modelFile, setModelFile] = useState<File | null>(null);
+    const [name, setName] = useState("")
+    const [initiator, setInitiator] = useState("")
+    const [modelObjective, setModelObjective] = useState("")
+    const [modelType, setModelType] = useState("")
+    const [dataSource, setDataSource] = useState("")
+    const [modelRemarks, setModelRemarks] = useState("")
+    const [modelFile, setModelFile] = useState<File | null>(null)
 
     if (!isOpen) {
-        return null;
+        return null
     }
 
     const resetForm = () => {
@@ -160,11 +161,11 @@ export default function AddNewModelModal({ isOpen, onClose, onAddModel }: AddNew
 
                     {/* Action Button */}
                     <div className="mt-6 flex justify-end space-x-3 border-t pt-4">
-                        <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors">Cancel</button>
-                        <button type="submit" className="px-4 py-2 bg-primary-2 text-white rounded-lg hover:bg-primary-2/90 transition-colors">Add Model</button>
+                        <Button type="button" onClick={onClose} variant="secondary">Cancel</Button>
+                        <Button type="submit">Add Model</Button>
                     </div>
                 </form>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

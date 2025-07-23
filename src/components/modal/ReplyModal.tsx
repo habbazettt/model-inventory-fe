@@ -1,5 +1,6 @@
 import { X } from "lucide-react";
 import { useState } from "react";
+import Button from "../Button";
 
 interface NotificationData {
     id: number;
@@ -69,14 +70,19 @@ export default function ReplyModal({ notification, onClose, onSubmit }: ReplyMod
                     </div>
 
                     <div className="flex justify-end space-x-3 border-t p-4 bg-gray-50 rounded-b-lg">
-                        <button
-                            type="button"
+                        <Button
                             onClick={onClose}
-                            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                            variant="secondary"
+                            type="button"
                         >
                             Cancel
-                        </button>
-                        <button type="submit" className="px-4 py-2 bg-primary-2 text-white rounded-lg hover:bg-primary-2/90 transition-colors">Send Reply</button>
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="primary"
+                        >
+                            Send Reply
+                        </Button>
                     </div>
                 </form>
             </div>
