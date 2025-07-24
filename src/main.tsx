@@ -15,6 +15,11 @@ import DeveloperModelDetailsPage from './pages/developer/DeveloperModelDetailsPa
 import ValidatorModelDetailsPage from './pages/validator/ValidatorModelDetailsPage.tsx'
 import DeveloperModelResultsPage from './pages/developer/DeveloperModelResultsPage.tsx'
 import ValidatorModelResultsPage from './pages/validator/ValidatorModelResultsPage.tsx'
+import ApproverHomePage from './pages/approver/ApproverHomePage.tsx'
+import ApproverNotificationsPage from './pages/approver/ApproverNotificationsPage.tsx'
+import ApproverModelApprovalPage from './pages/approver/ApproverModelApprovalPage.tsx'
+import ApproverModelDetailsPage from './pages/approver/ApproverModelDetailsPage.tsx'
+import ApproverModelResultsPage from './pages/approver/ApproverModelResultsPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -60,6 +65,26 @@ const router = createBrowserRouter([
   {
     path: "/validator/model/:id/results",
     element: <ValidatorModelResultsPage />,
+  },
+  {
+    path: "/approver/home",
+    element: <ApproverHomePage />,
+  },
+  {
+    path: "/approver/notifications",
+    element: <ApproverNotificationsPage />,
+  },
+  {
+    path: "/approver/model-approval",
+    element: <ApproverModelApprovalPage />,
+  },
+  {
+    path: "/approver/model/:id",
+    element: <ApproverModelDetailsPage />,
+  },
+  {
+    path: "/approver/model/:id/results",
+    element: <ApproverModelResultsPage />,
   },
   {
     path: "/auth/login",
