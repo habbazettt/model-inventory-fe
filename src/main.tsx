@@ -20,6 +20,9 @@ import ApproverNotificationsPage from './pages/approver/ApproverNotificationsPag
 import ApproverModelApprovalPage from './pages/approver/ApproverModelApprovalPage.tsx'
 import ApproverModelDetailsPage from './pages/approver/ApproverModelDetailsPage.tsx'
 import ApproverModelResultsPage from './pages/approver/ApproverModelResultsPage.tsx'
+import SuperuserHomePage from './pages/superuser/SuperuserHomePage.tsx'
+import SuperuserNotificationsPage from './pages/superuser/SuperuserNotificationsPage.tsx'
+import SuperuserAccessManagementPage from './pages/superuser/SuperuserAccessManagementPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -85,6 +88,18 @@ const router = createBrowserRouter([
   {
     path: "/approver/model/:id/results",
     element: <ApproverModelResultsPage />,
+  },
+  {
+    path: "/superuser/home",
+    element: <SuperuserHomePage />,
+  },
+  {
+    path: '/superuser/notifications',
+    element: <SuperuserNotificationsPage />,
+  },
+  {
+    path: "/superuser/access-management",
+    element: <SuperuserAccessManagementPage />,
   },
   {
     path: "/auth/login",

@@ -37,3 +37,13 @@ export interface Logs {
     action_details: string
     timestamp: string
 }
+
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    roles: string[];
+    avatar?: string;
+    status: 'active' | 'inactive';
+    lastLogin?: string;
+};

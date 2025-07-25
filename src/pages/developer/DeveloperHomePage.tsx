@@ -65,7 +65,7 @@ const DeveloperHomePage = () => {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="flex">
       <Sidebar>
         <SidebarItem
           icon={<Home size={20} />}
